@@ -48,9 +48,9 @@ func isValueEmpty(value interface{}) bool {
 	case string:
 		return v == ""
 	case float64:
-		return false // You may adjust this based on your specific requirements for numeric types
+		return false
 	case bool:
-		return false // You may adjust this based on your specific requirements for boolean types
+		return false
 	case map[string]interface{}:
 		return len(v) == 0
 	default:

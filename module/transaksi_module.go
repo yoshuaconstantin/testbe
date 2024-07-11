@@ -1,21 +1,37 @@
 package module
 
 import (
-	"database/sql"
+	"testbe/config"
 	"testbe/schemas/models"
+	"testbe/schemas/request"
+	"time"
 
 	_ "github.com/lib/pq" // Import driver PostgreSQL
 )
 
 // Fungsi untuk membuat transaksi baru
-func CreateTransaksi(db *sql.DB, transaksi models.Transaksi) error {
+func CreateTransaksi(transaksi request.CreateTransaksi) error {
+    
+    db := config.CreateConnection()
+
+	defer db.Close()
+
+    currentTime := time.Now()
+
+    var tanggal = currentTime.Format("2006.01.02")
+
     _, err := db.Exec("INSERT INTO transaksi (NomorRekening, JenisTransaksi, JumlahTransaksi, TanggalTransaksi) VALUES (?, ?, ?, ?)",
-        transaksi.NomorRekening, transaksi.JenisTransaksi, transaksi.JumlahTransaksi, transaksi.TanggalTransaksi)
+        transaksi.NomorRekening, transaksi.JenisTransaksi, transaksi.JumlahTransaksi, tanggal)
     return err
 }
 
 // Fungsi untuk membaca informasi transaksi berdasarkan ID atau nomor rekening
-func ReadTransaksi(db *sql.DB, identifier string) ([]models.Transaksi, error) {
+func ReadTransaksi(identifier string) ([]models.Transaksi, error) {
+
+    db := config.CreateConnection()
+
+	defer db.Close()
+
     rows, err := db.Query("SELECT * FROM transaksi WHERE ID = ? OR NomorRekening = ?", identifier, identifier)
     if err != nil {
         return nil, err
@@ -35,14 +51,27 @@ func ReadTransaksi(db *sql.DB, identifier string) ([]models.Transaksi, error) {
 }
 
 // Fungsi untuk memperbarui informasi transaksi
-func UpdateTransaksi(db *sql.DB, transaksi models.Transaksi) error {
+func UpdateTransaksi(transaksi request.UpdateTransaksi) error {
+    db := config.CreateConnection()
+
+	defer db.Close()
+
+    currentTime := time.Now()
+
+    var tanggal = currentTime.Format("2006.01.02")
+
     _, err := db.Exec("UPDATE transaksi SET NomorRekening = ?, JenisTransaksi = ?, JumlahTransaksi = ?, TanggalTransaksi = ? WHERE ID = ?",
-        transaksi.NomorRekening, transaksi.JenisTransaksi, transaksi.JumlahTransaksi, transaksi.TanggalTransaksi, transaksi.ID)
+        transaksi.NomorRekening, transaksi.JenisTransaksi, transaksi.JumlahTransaksi, tanggal, transaksi.Id)
     return err
 }
 
 // Fungsi untuk menghapus transaksi berdasarkan ID
-func DeleteTransaksi(db *sql.DB, id int) error {
+func DeleteTransaksi(id int) error {
+
+    db := config.CreateConnection()
+
+	defer db.Close()
+    
     _, err := db.Exec("DELETE FROM transaksi WHERE ID = ?", id)
     return err
 }
