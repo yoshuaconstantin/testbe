@@ -20,8 +20,8 @@ func TestTransaksi(t *testing.T) {
 
     // Buat rekening untuk keperluan testing transaksi
     newRekening := request.CreateRekeningRequest{
-        NamaPemilik:     "Alice",
-        NomorRekening:   1234567890,
+        NamaPemilik:     "AliceSetan",
+        NomorRekening:   112233,
         Saldo:           1000.0,
     
     }
@@ -32,7 +32,7 @@ func TestTransaksi(t *testing.T) {
 
     // Test CreateTransaksi
     newTransaksi := request.CreateTransaksi{
-        NomorRekening:   "1234567890",
+        NomorRekening:   "112233",
         JenisTransaksi:  "debit",
         JumlahTransaksi: 500.0,
     }
@@ -42,7 +42,7 @@ func TestTransaksi(t *testing.T) {
     }
 
     // Test ReadTransaksi
-    transaksiList, err := module.ReadTransaksi("1234567890") // Baca berdasarkan nomor rekening
+    transaksiList, err := module.ReadTransaksi("112233") // Baca berdasarkan nomor rekening
     if err != nil {
         t.Error("Error reading transaksi:", err)
     } else if len(transaksiList) != 1 || transaksiList[0].JenisTransaksi != "debit" {
@@ -50,8 +50,8 @@ func TestTransaksi(t *testing.T) {
     }
 
 	updateTransaksi := request.UpdateTransaksi{
-		Id: 1,
-        NomorRekening:   "1234567890",
+		Id: transaksiList[0].ID,
+        NomorRekening:   "112233",
         JenisTransaksi:  "kredit",
         JumlahTransaksi: 501.0,
     }
@@ -61,7 +61,7 @@ func TestTransaksi(t *testing.T) {
         t.Error("Error updating transaksi:", err)
     }
 
-    transaksiList, err = module.ReadTransaksi("1") // Baca berdasarkan ID
+    transaksiList, err = module.ReadTransaksi(updateTransaksi.NomorRekening) // Baca berdasarkan ID
     if err != nil {
         t.Error("Error reading transaksi after update:", err)
     } else if len(transaksiList) != 1 || transaksiList[0].JenisTransaksi != "kredit" {
@@ -82,7 +82,12 @@ func TestTransaksi(t *testing.T) {
     }
 
     // Hapus rekening yang dibuat untuk testing
-    err = module.DeleteRekening(updateTransaksi.Id)
+    err = module.DeleteRekening2(112233)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    err = module.DeleteRekening2(123123123)
     if err != nil {
         t.Fatal(err)
     }

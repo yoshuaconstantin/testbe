@@ -32,6 +32,21 @@ func CreateRekenings(cr function.CustomWR) {
 	
 }
 
+func ReadRekeningsAll(cr function.CustomWR) {
+	
+	var responseRead models.Rekening
+
+	responseRead, err := module.ReadRekeningAll()
+	
+	if err != nil {
+		function.Ehandler(cr, http.StatusInternalServerError, err.Error(), "User facing this error: "+err.Error())
+		return
+	}
+	
+	function.Rsp(cr.W).StatusCode(http.StatusOK).Log("berhasil").JSON(responseRead)
+	
+}
+
 func ReadRekenings(cr function.CustomWR) {
 	
 	queryParams := cr.R.URL.Query()

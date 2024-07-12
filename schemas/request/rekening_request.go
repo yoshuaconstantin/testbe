@@ -1,14 +1,14 @@
 package request
 
 type CreateRekeningRequest struct {
-    NamaPemilik   string  `json:"namaPemilik"`
-    NomorRekening int `json:"nomorRekening"`
-    Saldo  float64  `json:"saldo"`
+    NamaPemilik   string  `json:"namapemilik"`
+    NomorRekening int `json:"nomorrekening"`
+    Saldo  int  `json:"saldo"`
 }
 
 type UpdateRekeningRequest struct {
     ID              int  `json:"id"`
-    NamaPemilik   string  `json:"namaPemilik"`
-    NomorRekening int `json:"nomorRekening"`
+    NamaPemilik   string  `json:"namapemilik"`
+    NomorRekening int `json:"nomorrekening"`
 
 }

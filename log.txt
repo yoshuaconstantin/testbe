@@ -1,3 +1,1 @@
-time=2023-12-05T15:14:22.967+07:00 level=INFO msg="Server dijalankan pada port 8080..."
-time=2024-07-11T15:25:15.685+07:00 level=INFO msg="Server dijalankan pada port 8080..."
-time=2024-07-11T15:41:39.122+07:00 level=INFO msg="Server dijalankan pada port 8080..."
+time=2024-07-12T16:44:34.820+07:00 level=INFO msg="Server dijalankan pada port 8080..."

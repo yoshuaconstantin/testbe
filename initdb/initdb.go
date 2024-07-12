@@ -9,22 +9,22 @@ import (
 
 func main() {
 
-    // // Konfigurasi koneksi awal ke database postgres
-    // connStrInitial := "user=postgres password=123123123 dbname=postgres host=localhost sslmode=disable"
-    // dbInitial, err := sql.Open("postgres", connStrInitial)
-    // if err != nil {
-    //     panic(err.Error())
-    // }
-    // defer dbInitial.Close()
+    // Konfigurasi koneksi awal ke database postgres
+    connStrInitial := "user=postgres password=123123123 dbname=postgres host=localhost sslmode=disable"
+    dbInitial, err := sql.Open("postgres", connStrInitial)
+    if err != nil {
+        panic(err.Error())
+    }
+    defer dbInitial.Close()
 
-    // // Buat database
-    // _, err = dbInitial.Exec("CREATE DATABASE testbecrud")
-    // if err != nil {
-    //     panic(err.Error())
-    // }
+    // Buat database
+    _, err = dbInitial.Exec("CREATE DATABASE testbecrud")
+    if err != nil {
+        panic(err.Error())
+    }
 
-    // Tutup koneksi awal setelah membuat database
-    // dbInitial.Close()
+    //Tutup koneksi awal setelah membuat database
+    dbInitial.Close()
 
     // Konfigurasi koneksi baru ke database testbecrud
     connStr := "user=postgres password=123123123 dbname=testbecrud host=localhost sslmode=disable"

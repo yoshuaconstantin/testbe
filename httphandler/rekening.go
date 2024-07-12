@@ -14,7 +14,7 @@ func RekeningCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 func RekeningReadHandler(w http.ResponseWriter, r *http.Request) {
     function.SetHeaders(function.CustomWR{w, r})
-    controller.ReadRekenings(function.CustomWR{w, r})
+    controller.ReadRekeningsAll(function.CustomWR{w, r})
 }
 
 func RekeningUpdateHandler(w http.ResponseWriter, r *http.Request) {

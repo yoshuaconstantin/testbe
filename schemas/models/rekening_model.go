@@ -3,7 +3,7 @@ package models
 type Rekening struct {
     ID              int     
     NamaPemilik     string  
-    NomorRekening   string  
-    Saldo           float64 
+    NomorRekening   int  
+    Saldo           int 
     TanggalPembuatan string 
 }
